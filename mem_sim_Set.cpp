@@ -121,8 +121,8 @@ void Set::writeWord(const uint32_t& word_address, const Word& data, Memory& mem,
 
 	updateLRU(LRU_block);		// Update the LRU list
 
-	// include readBlock time
-	execution_time += mem.get_readTime();
+	// include readBlock time if more than 1 word per block
+	if(nWords>1) execution_time += mem.get_readTime();
 
 	// write data
 	blocks[LRU_block].writeWord(block_offset, data);
