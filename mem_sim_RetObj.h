@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <iostream>
-#include <sting>
+#include <string>
 
 #include "mem_sim_Word.h"
 #include "mem_sim_Set.h"
@@ -23,7 +23,8 @@ private:
 	int setIdx;
 	int HitMiss;
 	int Time;
-	Word* WordPtr = NULL;
+	Word* WordPtr;
+	//Word data;
 };
 
 

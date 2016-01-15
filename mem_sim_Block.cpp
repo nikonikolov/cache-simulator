@@ -77,14 +77,14 @@ void Block::writeBack(Memory& mem){
 	if(!valid) return;
 
 	for(int i=0; i<nWords; i++){
-		mem.writeWord(tag+i, words[i]);
+		mem.writeWord(tag*nWords+i, words[i]);
 	}
 	dirty = false;
 }	
 
 void Block::fetchBlock(const uint32_t& block_address, Memory& mem){
 	for(int i=0; i<nWords; i++){
-		words[i] = mem.readWord(tag+i);
+		words[i] = mem.readWord(block_address*nWords+i);
 	}
 
 	dirty = false;
@@ -92,4 +92,11 @@ void Block::fetchBlock(const uint32_t& block_address, Memory& mem){
 	tag = block_address;
 }
 
+ostream& operator<<(ostream& out, const Block& BlockIn){
+	out<<"tag: "<<BlockIn.tag<<"\t"<<"valid: "<<BlockIn.valid<<"\t"<<"dirty: "<<BlockIn.dirty<<endl;
+	for(int i=0; i<BlockIn.words.size(); i++){
+		out<<"\t"<<BlockIn.words[i];
+	}
+	return out;
+}
 

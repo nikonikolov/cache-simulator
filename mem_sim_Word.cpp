@@ -28,6 +28,15 @@ Word::Word(const Word& WordIn) :
 	}	
 }
 
+Word::Word(const vector<uint8_t>& data_in) :
+	nBytes(data_in.size()){
+
+	for(int i=0; i<data_in.size(); i++){
+		bytes.push_back(data_in[i]);
+	}	
+
+	//cout<<*this<<" nBytes:"<<nBytes<<endl;
+}
 
 Word::~Word(){
 }
@@ -35,13 +44,22 @@ Word::~Word(){
 void Word::operator=(const Word& WordIn){
 	if(this != &WordIn){
 		
-		if(nBytes != WordIn.nBytes) throw "Invalid Assignment: Words with different lengths cannot be assigned";
+		if(nBytes != WordIn.nBytes){
+			//cout<<"nBytes: "<<nBytes<<" WordIn.nBytes: "<<WordIn.nBytes<<endl;
+			throw "Invalid Assignment: Words with different lengths cannot be assigned";
+		} 
+		//cout<<"done"<<endl;
 		
 		bytes.clear();
 		for(int i=0; i<nBytes; i++){
 			bytes.push_back(WordIn[i]);
 		}
 	}
+}
+
+
+int Word::get_size() const{
+	return nBytes;
 }
 
 const uint8_t& Word::operator[](int idx) const{
@@ -53,8 +71,8 @@ uint8_t& Word::operator[](int idx){
 }
 
 ostream& operator<<(ostream& out, const Word& WordIn){
-	for(int i=0; i<nBytes; i++){
-		out<<setfill('0')<< setw(2)<<hex<<uppercase<<(unsigned)WordIn[i];
+	for(int i=0; i<WordIn.nBytes; i++){
+		out<<setfill('0')<< setw(2)<<hex<<uppercase<<(uint32_t)WordIn[i];
 	}
 
 	return out;

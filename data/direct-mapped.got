@@ -1,0 +1,58 @@
+write-ack 0 miss 3
+read-ack 0 hit 1 FF11
+write-ack 1 miss 3
+write-ack 1 hit 1
+read-ack 1 hit 1 2211
+read-ack 1 hit 1 4422
+read-ack 0 hit 1 FF11
+debug-ack-begin
+Set 0
+	tag: 0	valid: 1	dirty: 1
+	FF11	0000
+
+
+Set 1
+	tag: 1	valid: 1	dirty: 1
+	2211	4422
+
+
+debug-ack-end
+write-ack 0 miss 5
+debug-ack-begin
+Set 0
+	tag: 4	valid: 1	dirty: 1
+	1234	0000
+
+
+Set 1
+	tag: 1	valid: 1	dirty: 1
+	2211	4422
+
+
+debug-ack-end
+read-ack 0 miss 5 FF11
+debug-ack-begin
+Set 0
+	tag: 0	valid: 1	dirty: 0
+	FF11	0000
+
+
+Set 1
+	tag: 1	valid: 1	dirty: 1
+	2211	4422
+
+
+debug-ack-end
+read-ack 0 miss 3 1234
+debug-ack-begin
+Set 0
+	tag: 4	valid: 1	dirty: 0
+	1234	0000
+
+
+Set 1
+	tag: 1	valid: 1	dirty: 1
+	2211	4422
+
+
+debug-ack-end

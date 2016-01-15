@@ -8,6 +8,10 @@ write-req 6 4422
 read-req 4
 read-req 6
 read-req 0
+debug-req
 write-req 16 1234
+debug-req
 read-req 0
+debug-req
 read-req 16
+debug-req

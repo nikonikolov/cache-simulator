@@ -13,7 +13,10 @@ class Word{
 public:
 	Word(const int& nBytesIn);
 	Word(const Word& WordIn);
+	Word(const vector<uint8_t>& data_in);
 	~Word();
+
+	int get_size() const;
 
 	const uint8_t& operator[](int idx) const;
 	uint8_t& operator[](int idx);
@@ -22,7 +25,7 @@ public:
 
 private:
 	//uint8_t * ptr;
-	vector<uint8_t> bytes;
+	vector<uint8_t> bytes;			// position 0 holds the MSByte
 
 	int nBytes;
 };

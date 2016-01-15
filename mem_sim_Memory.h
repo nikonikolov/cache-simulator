@@ -9,7 +9,7 @@
 class Memory{
 
 public:
-	Memory(const int& addressBitsIn, const int& bytesPerWordIn);
+	Memory(const int& addressBitsIn, const int& bytesPerWordIn, const int& readTimeIn, const int& writeTimeIn);
 	~Memory();
 
 	uint32_t get_readTime() const;

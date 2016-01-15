@@ -7,7 +7,7 @@
 class Cache{
 
 public:
-	Cache(const int& nSetsIn, const int& nBlocksIn, const int& nWordsIn, const int& nBytesIn);
+	Cache(const int& nSetsIn, const int& nBlocksIn, const int& nWordsIn, const int& nBytesIn, const int& hitTimeIn);
 	~Cache();
 
 	const Set& operator[](int idx) const;
@@ -15,6 +15,9 @@ public:
 
 	RetObj readWord(const uint32_t& address, Memory& mem);
 	RetObj writeWord(const uint32_t& byte_address, const Word& data, Memory& mem);
+	int flush(Memory& mem);
+	void debug();
+
 
 	/*Functions to write:
 		LRU replacement
@@ -23,9 +26,6 @@ public:
 		Debug response: "debug-ack-begin"\n\n"debug-ack-end" - without the quotes
 		Debug - e.g. print current state of cache - good one, not obligatory but good for debugging
 		
-		Write function: "write-ack" set-index "hit"|"miss" time - time given should be in cycles, including the memory
-		read/write if applicable
-
 		NOTE THAT Data is a string of hex digits with upper-case letters, which must be of the same width as a cache word 
 		(i.e. two hex digits per byte). The ordering is from highest address to lowest. 
 		

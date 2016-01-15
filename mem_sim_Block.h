@@ -17,10 +17,12 @@ public:
 	bool get_dirty() const;
 
 	Word readWord(const uint32_t& idx) const;
+	void writeWord(const uint32_t& idx, const Word& WordIn);
 
 	void writeBack(Memory& mem);
 	void fetchBlock(const uint32_t& block_address, Memory& mem);
 
+	friend ostream& operator<<(ostream& out, const Block& BlockIn);
 
 	const Word& operator[](uint32_t idx) const;
 	Word& operator[](uint32_t idx);

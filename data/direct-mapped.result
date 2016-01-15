@@ -1,0 +1,10 @@
+write-req 0 FF11	write-ack 0 miss 3	write-ack 0 miss 3
+read-req 0		read-ack 0 hit 1 FF11	read-ack 0 hit 1 FF11
+write-req 4 2211	write-ack 1 miss 3	write-ack 1 miss 3
+write-req 6 4422	write-ack 1 hit 1	write-ack 1 hit 1
+read-req 4		read-ack 1 hit 1 2211	read-ack 1 hit 1 2211
+read-req 6		read-ack 1 hit 1 4422	read-ack 1 hit 1 4422
+read-req 0		read-ack 0 hit 1 FF11	read-ack 0 hit 1 FF11
+write-req 16 1234	write-ack 0 miss 5	write-ack 0 miss 5
+read-req 0		read-ack 0 miss 5 FF11	read-ack 0 miss 5 1234
+read-req 16		read-ack 0 miss 3 1234	read-ack 0 miss 3 FF11

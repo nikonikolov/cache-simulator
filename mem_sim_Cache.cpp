@@ -22,8 +22,9 @@ Cache::~Cache(){
 }
 */
 
-Cache::Cache(const int& nSetsIn, const int& nBlocksIn, const int& nWordsIn, const int& nBytesIn) :
-	nSets(nSetsIn), nBlocks(nBlocksIn), nWords(nWordsIn), nBytes(nBytesIn), sets(nSetsIn, Set(nBlocksIn, nWordsIn, nBytesIn)){	
+Cache::Cache(const int& nSetsIn, const int& nBlocksIn, const int& nWordsIn, const int& nBytesIn, const int& hitTimeIn):
+	nSets(nSetsIn), nBlocks(nBlocksIn), nWords(nWordsIn), nBytes(nBytesIn), hitTime(hitTimeIn), 
+	sets(nSetsIn, Set(nBlocksIn, nWordsIn, nBytesIn)){	
 
 	/*for(int i=0; i<nSets; i++){
 		sets.push_back(Set(nBlocks, nWords, nBytes));
@@ -56,12 +57,13 @@ RetObj Cache::readWord(const uint32_t& byte_address, Memory& mem){
 	uint32_t setIdx = (word_address/nWords) %nSets;
 
 	// include HitTime
-	uint32_t access_time = hitTime; 
+	uint32_t execution_time = hitTime; 
+	//cout<<setIdx<<" "<<nSets<<endl;
 	
 	// Read Word
-	Word data = sets[setIdx].readWord(word_address, mem, access_time, HitMiss);
-	
-	return RetObj(setIdx, HitMiss, access_time, data);
+	Word data = sets[setIdx].readWord(word_address, mem, execution_time, HitMiss);
+	return RetObj(setIdx, HitMiss, execution_time, data);
+	//return RetObj(setIdx, HitMiss, execution_time, sets[setIdx].readWord(word_address, mem, execution_time, HitMiss));
 }
 
 
@@ -72,11 +74,31 @@ RetObj Cache::writeWord(const uint32_t& byte_address, const Word& data, Memory& 
 	uint32_t setIdx = (word_address/nWords) %nSets;
 
 	// include HitTime
-	uint32_t access_time = hitTime; 
+	uint32_t execution_time = hitTime; 
 	
 	// write Word
-	sets[setIdx].writeWord(word_address, data, mem, access_time, HitMiss);
+	sets[setIdx].writeWord(word_address, data, mem, execution_time, HitMiss);
 
-	return RetObj(setIdx, HitMiss, access_time);
+	return RetObj(setIdx, HitMiss, execution_time);
+}
+
+int Cache::flush(Memory& mem){
+	int execution_time=0;
+
+	for(int i=0; i<sets.size(); i++){
+		execution_time += sets[i].flush(mem);
+	}
+
+	return execution_time;
+}
+
+
+void Cache::debug(){
+	cout<<"debug-ack-begin"<<endl;
+	for(int i=0; i<sets.size(); i++){
+		cout<<"Set "<<i<<endl;
+		cout<<sets[i]<<endl<<endl;
+	}
+	cout<<"debug-ack-end"<<endl;
 }
 

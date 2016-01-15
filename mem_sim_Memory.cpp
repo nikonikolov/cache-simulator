@@ -25,9 +25,12 @@ Word Memory::readWord(const uint32_t& address){
 }
 */
 
-Memory::Memory(const int& addressBitsIn, const int& bytesPerWordIn) :
-	size(pow(2, addressBitsIn)), bytesPerWord(bytesPerWordIn), nWords(size/bytesPerWord), words (nWords,0) {
+Memory::Memory(const int& addressBitsIn, const int& bytesPerWordIn, const int& readTimeIn, const int& writeTimeIn) :
+	size(pow(2, addressBitsIn)), bytesPerWord(bytesPerWordIn), readTime(readTimeIn), writeTime(writeTimeIn) {
 	
+	nWords = size/bytesPerWord;
+
+	//words (nWords, Word(bytesPerWordIn))
 	/*size = pow(2, addressBitsIn);
 	bytesPerWord = bytesPerWordIn;
 	nWords = size/bytesPerWord;
@@ -36,9 +39,10 @@ Memory::Memory(const int& addressBitsIn, const int& bytesPerWordIn) :
 	for(int i=0; i<nWords; i++){
 		ptr[i] = new Word(bytesPerWord);
 	}
-	for(int i=0; i<nSets; i++){
-		sets.push_back(Set(nBlocks, nWords, nBytes));
-	}*/
+	*/
+	for(int i=0; i<nWords; i++){
+		words.push_back(Word(bytesPerWord));
+	}
 }
 
 Memory::~Memory(){
@@ -66,7 +70,7 @@ Word Memory::readWord(const uint32_t& word_address){
 	return words[word_address]; 
 }
 	
-void Memory::writeWord(const uint32_t& word_address, const Word& wordIn){
+void Memory::writeWord(const uint32_t& word_address, const Word& WordIn){
 	words[word_address] = WordIn;
 }
 

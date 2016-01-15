@@ -2,9 +2,9 @@
 #define MEM_SIM_Set_H
 
 #include "mem_sim_Block.h"
-#include "mem_sim_Memory.h"
 
 #include <list>
+#include <iostream>
 
 #define HIT 	1
 #define MISS 	0
@@ -19,7 +19,11 @@ public:
 	const Block& operator[](uint32_t idx) const;
 	Block& operator[](uint32_t idx);
 
-	Word readWord(const uint32_t& word_address, Memory& mem, uint32_t& access_time, int& HitMiss);
+	Word readWord(const uint32_t& word_address, Memory& mem, uint32_t& execution_time, int& HitMiss);
+	void writeWord(const uint32_t& word_address, const Word& data, Memory& mem, uint32_t& execution_time, int& HitMiss);
+	int flush(Memory& mem);
+
+	friend ostream& operator<<(ostream& out, const Set& SetIn);
 
 private:
 	
@@ -29,7 +33,7 @@ private:
 	//Block ** ptr;
 	vector<Block> blocks;
 
-	list<uint32_t> MRU_list;			// LRU block stays on botoom
+	list<uint32_t> MRU_list;			// LRU block stays on bottom
 
 	uint32_t nBlocks;
 	uint32_t nWords;
