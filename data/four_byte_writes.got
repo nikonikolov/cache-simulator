@@ -1,0 +1,9 @@
+read-ack 0 miss 2 00000000
+write-ack 0 hit 1
+read-ack 0 hit 1 FFFFFFFF
+read-ack 0 miss 3 00000000
+write-ack 0 hit 1
+read-ack 0 hit 1 00000001
+write-ack 0 miss 2
+read-ack 0 hit 1 123AA678
+read-ack 0 miss 3 00000001

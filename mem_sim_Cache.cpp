@@ -47,14 +47,9 @@ Set& Cache::operator[](int idx){
 RetObj Cache::readWord(const uint32_t& byte_address, Memory& mem){
 	
 	int HitMiss;
-	// The first nWords(words per block) map to the first set, the second batch to the second set and so on
-	// That goes on until you reach the first nWords*nSets when the first column of blocks in the cache is already full
-	// Then the nWords*nSets word maps again to the first set
-	// Repeating that nBlocks times the cache gets filled
-	// Then after nBlocks*nWords*nSets word addresses again start mapping to the first set
-
-	uint32_t word_address = byte_address/nBytes;
-	uint32_t setIdx = (word_address/nWords) %nSets;
+	
+	uint32_t word_address;
+	uint32_t setIdx = decode_address(byte_address, word_address);
 
 	// include HitTime
 	uint32_t execution_time = hitTime; 
@@ -63,15 +58,14 @@ RetObj Cache::readWord(const uint32_t& byte_address, Memory& mem){
 	// Read Word
 	Word data = sets[setIdx].readWord(word_address, mem, execution_time, HitMiss);
 	return RetObj(setIdx, HitMiss, execution_time, data);
-	//return RetObj(setIdx, HitMiss, execution_time, sets[setIdx].readWord(word_address, mem, execution_time, HitMiss));
 }
 
 
 RetObj Cache::writeWord(const uint32_t& byte_address, const Word& data, Memory& mem){
 	int HitMiss;
 
-	uint32_t word_address = byte_address/nBytes;
-	uint32_t setIdx = (word_address/nWords) %nSets;
+	uint32_t word_address;
+	uint32_t setIdx = decode_address(byte_address, word_address);
 
 	// include HitTime
 	uint32_t execution_time = hitTime; 
@@ -100,5 +94,17 @@ void Cache::debug(){
 		cout<<sets[i]<<endl<<endl;
 	}
 	cout<<"debug-ack-end"<<endl;
+}
+
+
+uint32_t Cache::decode_address(const uint32_t& byte_address, uint32_t& word_address){
+	// The first nWords(words per block) map to the first set, the second batch to the second set and so on
+	// That goes on until you reach the first nWords*nSets when the first column of blocks in the cache is already full
+	// Then the nWords*nSets word maps again to the first set
+	// Repeating that nBlocks times the cache gets filled
+	// Then after nBlocks*nWords*nSets word addresses again start mapping to the first set
+
+	word_address = byte_address/nBytes;
+	return ((word_address/nWords) %nSets);
 }
 

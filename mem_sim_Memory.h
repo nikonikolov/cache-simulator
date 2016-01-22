@@ -21,10 +21,6 @@ public:
 	const Word& operator[](int idx) const;
 	Word& operator[](int idx);
 
-	/*Fucntions to implement
-		2. get memory size - create one for bytes and one for words 
-	*/
-
 private:
 	//Word ** ptr;
 	vector<Word> words;

@@ -1,0 +1,9 @@
+read-req 0             read-ack 0 miss 2 00000000  read-ack 0 miss 2 00000000
+write-req 0 FFFFFFFF   write-ack 0 hit 1           write-ack 0 hit 1
+read-req 0             read-ack 0 hit 1 FFFFFFFF   read-ack 0 hit 1 FFFFFFFF
+read-req 16            read-ack 0 miss 3 00000000  read-ack 0 miss 3 00000000
+write-req 16 00000001  write-ack 0 hit 1           write-ack 0 hit 1
+read-req 16            read-ack 0 hit 1 00000001   read-ack 0 hit 1 00000001
+write-req 32 123AA678  write-ack 0 miss 2          write-ack 0 miss 2
+read-req 32            read-ack 0 hit 1 123AA678   read-ack 0 hit 1 123AA678
+read-req 16            read-ack 0 miss 3 00000001  read-ack 0 miss 3 00000001

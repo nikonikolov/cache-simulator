@@ -1,0 +1,15 @@
+write-ack 0 miss 1
+read-ack 0 hit 1 FF
+write-ack 0 miss 1
+read-ack 0 hit 1 FA
+write-ack 0 miss 1
+read-ack 0 hit 1 FB
+write-ack 0 miss 1
+read-ack 0 hit 1 FC
+read-ack 0 hit 1 FF
+write-ack 0 miss 3
+read-ack 0 hit 1 FD
+read-ack 0 miss 6 FA
+read-ack 0 miss 6 FB
+write-ack 1 miss 1
+flush-ack 6

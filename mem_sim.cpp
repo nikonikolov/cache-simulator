@@ -62,6 +62,7 @@ int main(int argc, char *argv[]){
 			vector<uint8_t> data;
 			RetObj TmpObj = cacheMem.writeWord(atoi(params[1].c_str()), parse_word(params[2], data), Mem);
 			cout<<"write-ack "<<TmpObj<<endl;
+			//if(atoi(params[1].c_str())==32) cout<<Word(data)<<endl;
 		}
 		if(params[0]=="flush-req"){
 			//cout<<"flush"<<endl;

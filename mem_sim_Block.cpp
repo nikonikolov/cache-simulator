@@ -62,6 +62,13 @@ bool Block::get_dirty() const{
 	return dirty;
 }
 
+/*
+uint32_t Block::set_tag(const uint32_t& tagIn){
+	tag = tagIn;
+	valid = true;
+}*/
+
+
 Word Block::readWord(const uint32_t& idx) const{
 	return words[idx];
 }

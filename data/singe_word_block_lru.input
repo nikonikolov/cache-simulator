@@ -1,0 +1,15 @@
+write-req 0 FF
+read-req 0
+write-req 2 FA
+read-req 2
+write-req 4 FB
+read-req 4
+write-req 6 FC
+read-req 6
+read-req 0
+write-req 8 FD
+read-req 8
+read-req 2
+read-req 4
+write-req 7 FE
+flush-req

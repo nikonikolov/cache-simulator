@@ -108,6 +108,7 @@ void Set::writeWord(const uint32_t& word_address, const Word& data, Memory& mem,
 
 	// find the index of LRU block 
 	uint32_t LRU_block = findLRU();
+	//cout<<LRU_block<<endl;
 
 	// write back Block if dirty
 	if(blocks[LRU_block].get_dirty()){
@@ -116,13 +117,17 @@ void Set::writeWord(const uint32_t& word_address, const Word& data, Memory& mem,
 		blocks[LRU_block].writeBack(mem);
 	}
 
-	// replace Block
+	// replace Block - a Hack - usually this has to be in the next if statement. Placed here to update the tag of the Block
 	blocks[LRU_block].fetchBlock(block_address, mem);
 
-	updateLRU(LRU_block);		// Update the LRU list
 
-	// include readBlock time if more than 1 word per block
-	if(nWords>1) execution_time += mem.get_readTime();
+	// fetch block and include readBlock time if more than 1 word per block
+	if(nWords>1){
+		// include readBlock time if more than 1 word per block
+		if(nWords>1) execution_time += mem.get_readTime();
+	}
+
+	updateLRU(LRU_block);		// Update the LRU list
 
 	// write data
 	blocks[LRU_block].writeWord(block_offset, data);
@@ -157,10 +162,9 @@ void Set::updateLRU(const uint32_t& idx){
 	
 	for(it=MRU_list.begin(); it!=MRU_list.end(); ++it){
 		if(idx== *it){
-			list<uint32_t>::iterator it_head = MRU_list.begin();
-			uint32_t tmp = *it_head;
-			*it_head = *it;
-			*it = tmp;
+			// Note: swapping values does not work. You have to swap pointers
+			MRU_list.erase(it);
+			MRU_list.push_front(idx);
 		}
 	}
 }

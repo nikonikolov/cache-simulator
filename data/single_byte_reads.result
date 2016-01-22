@@ -1,0 +1,4 @@
+read-req 0  read-ack 0 miss 2 00  read-ack 0 miss 2 00
+read-req 1  read-ack 0 miss 2 00  read-ack 0 miss 2 00
+read-req 2  read-ack 0 miss 2 00  read-ack 0 miss 2 00
+read-req 3  read-ack 0 miss 2 00  read-ack 0 miss 2 00

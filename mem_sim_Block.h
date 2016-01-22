@@ -15,6 +15,7 @@ public:
 	uint32_t get_tag() const;
 	bool get_valid() const;
 	bool get_dirty() const;
+	//uint32_t set_tag();
 
 	Word readWord(const uint32_t& idx) const;
 	void writeWord(const uint32_t& idx, const Word& WordIn);

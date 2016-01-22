@@ -1,0 +1,15 @@
+write-req 0 FF  write-ack 0 miss 1    write-ack 0 miss 1
+read-req 0      read-ack 0 hit 1 FF   read-ack 0 hit 1 FF
+write-req 2 FA  write-ack 0 miss 1    write-ack 0 miss 1
+read-req 2      read-ack 0 hit 1 FA   read-ack 0 hit 1 FA
+write-req 4 FB  write-ack 0 miss 1    write-ack 0 miss 1
+read-req 4      read-ack 0 hit 1 FB   read-ack 0 hit 1 FB
+write-req 6 FC  write-ack 0 miss 1    write-ack 0 miss 1
+read-req 6      read-ack 0 hit 1 FC   read-ack 0 hit 1 FC
+read-req 0      read-ack 0 hit 1 FF   read-ack 0 hit 1 FF
+write-req 8 FD  write-ack 0 miss 3    write-ack 0 miss 3
+read-req 8      read-ack 0 hit 1 FD   read-ack 0 hit 1 FD
+read-req 2      read-ack 0 miss 6 FA  read-ack 0 miss 6 FA
+read-req 4      read-ack 0 miss 6 FB  read-ack 0 miss 6 FB
+write-req 7 FE  write-ack 1 miss 1    write-ack 1 miss 1
+flush-req       flush-ack 6           flush-ack 6
